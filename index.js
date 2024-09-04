@@ -77,11 +77,12 @@ app.post("/", async (req, res) => {
 
 //Get Route for Fetching attendance
 
-app.get("/fetchAttendance",async(req,res)=>{
-    let inputYear=new Date().getFullYear();
+app.post("/fetchAttendance",async(req,res)=>{
+    const {inputYear}=req.body
+    // console.log(inputYear)
     const collectionName = `Attendance_${inputYear}`;
     const FetchAttendanceModel=getModelForYear(collectionName);
     const AttendanceData=await FetchAttendanceModel.find({})
-    console.log(AttendanceData)
+    // console.log(AttendanceData)
     res.status(200).json({message:"Attendance Details fecthed Successfully",AttendanceData})
-})
+}) 
