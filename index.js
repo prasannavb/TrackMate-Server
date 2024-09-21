@@ -114,4 +114,12 @@ app.post("/fetchAttendancePerMonth",async(req,res)=>{
   console.error("Error in fetching attendance:", error);
   res.status(500).json({ error: "Error processing request" });
   }
-}) 
+})  
+
+app.delete("/deleteAttendancePerMonth",async(req,res)=>{
+  const {_year,_date}=req.body
+  const collectionName = `attendance_${_year}`;
+  const FetchAttendanceModel=getModelForYear(collectionName)
+  await FetchAttendanceModel.deleteOne({date:_date})
+  res.status(200).json({status:true,message:"Attendance has been deleted"})
+})
